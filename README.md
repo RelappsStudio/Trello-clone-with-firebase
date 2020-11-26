@@ -8,9 +8,9 @@ This is the final project from my course and my first using Google Firebase.
 I want to have something to show and be proud of as it will be my biggest app so far. This app is made purely for educational purposes.
 
 ## See original app
-[Trello website](https://trello.com)
-[Trello Android version](https://play.google.com/store/apps/details?id=com.trello)
-[Trello iOS version](https://apps.apple.com/pl/app/trello-organize-anything/id461504587?l=pl)
+- [Trello website](https://trello.com)
+- [Trello Android version](https://play.google.com/store/apps/details?id=com.trello)
+- [Trello iOS version](https://apps.apple.com/pl/app/trello-organize-anything/id461504587?l=pl)
 
 ## Contributing is not possible
 
