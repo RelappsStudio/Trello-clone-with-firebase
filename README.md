@@ -1,3 +1,6 @@
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RelappsStudio/Trello-clone-with-firebase?include_prereleases&style=plastic)
+
+
 ## Trello clone
 This is the final project from my course and my first using Google Firebase.
 
