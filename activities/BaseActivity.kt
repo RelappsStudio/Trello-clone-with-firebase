@@ -8,10 +8,13 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.relapps.trelloclone.R
+import com.relapps.trelloclone.models.User
 import kotlinx.android.synthetic.main.dialog_progress.*
+import kotlinx.android.synthetic.main.nav_header.*
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -69,6 +72,10 @@ open class BaseActivity : AppCompatActivity() {
         val snackbarView = snackbar.view
         snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_error_color))
         snackbar.show()
+    }
+
+    open fun updateNavigationUserDetails(user: User)
+    {
     }
 
     fun notifyUser(text: String)

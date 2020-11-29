@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.relapps.trelloclone.R.*
+import com.relapps.trelloclone.firebase.FirestoreClass
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -24,7 +26,19 @@ class SplashActivity : AppCompatActivity() {
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
+
+            var currentUserId = FirestoreClass().getCurrentUserId()
+
+            if (currentUserId.isNotEmpty())
+            {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            else
+            {
+                startActivity(Intent(this, IntroActivity::class.java))
+            }
+
+
             finish()
         }, 1500)
     }

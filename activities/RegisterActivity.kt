@@ -1,20 +1,33 @@
 package com.relapps.trelloclone.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.WindowManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.relapps.trelloclone.R
+import com.relapps.trelloclone.firebase.FirestoreClass
+import com.relapps.trelloclone.models.User
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_sign_in.*
+
 
 class RegisterActivity : BaseActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
         ivRegisterBackArrow.setOnClickListener {
             onBackPressed()
@@ -23,6 +36,18 @@ class RegisterActivity : BaseActivity() {
         btnRegisterConfirm.setOnClickListener {
             registerUser()
         }
+
+
+    }
+
+
+
+    fun userRegisteredSuccess()
+    {
+        hideProgressDialog()
+        notifyUser("Succesfully registered")
+        FirebaseAuth.getInstance().signOut()
+        finish()
     }
 
 
@@ -37,13 +62,12 @@ class RegisterActivity : BaseActivity() {
             showProgressDialog("Please wait")
 
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                hideProgressDialog()
+
                 if (task.isSuccessful) {
                     val firebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email
-                    notifyUser("Email $registeredEmail registered succesfully")
-                    FirebaseAuth.getInstance().signOut()
-                    finish()
+                    val user = User(firebaseUser.uid, name, registeredEmail!!)
+                    FirestoreClass().registerUser(this, user)
                 } else {
                     notifyUser("${task.exception!!.message}")
                 }
